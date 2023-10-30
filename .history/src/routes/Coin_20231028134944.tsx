@@ -1,9 +1,6 @@
-import { Switch, Route, useLocation, useParams, Link, useRouteMatch } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import Chart from './Chart';
-import Price from './Price';
-import { fetchCoin, fetchTicker } from '../api';
-import { useQuery } from 'react-query';
 
 const Container = styled.div`
     padding: 0px 20px;
@@ -44,27 +41,6 @@ const OverviewItem = styled.div`
 `;
 const Description = styled.p`
   margin: 20px 0px;
-`;
-const Tabs = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  margin: 25px 0px;
-  gap: 10px;
-`;
-
-const Tab = styled.span<{ $isActive: boolean }>`
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 12px;
-  font-weight: 400;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 7px 0px;
-  border-radius: 10px;
-  color: ${(props) =>
-    props.$isActive ? props.theme.accentColor : props.theme.textColor};
-  a {
-    display: block;
-  }
 `;
 
 interface Params {
@@ -132,32 +108,24 @@ interface ITickerData {
 }
 
 function Coin() {
-  const { coinId } = useParams<Params>();
-  const { state } = useLocation<RouteState>();
-  const priceMatch = useRouteMatch("/:coinId/price");
-  const chartMatch = useRouteMatch("/:coinId/chart");
-
-  const {isLoading: isCoinLoading, data: coinData} = useQuery<ICoinData>(["info",coinId], ()=>fetchCoin(coinId));
-  const {isLoading: isTickerLoading, data: tickerData} = useQuery<ITickerData>(["ticker",coinId], ()=>fetchTicker(coinId));
-/*   const [ loading, setLoading ] = useState(true);
+    const [ loading, setLoading ] = useState(true);
+    const { coinId } = useParams<Params>();
+    const { state } = useLocation<RouteState>();
     const [ coin, setCoin ] = useState<ICoinData>();
     const [ ticker, setTicker] = useState<ITickerData>();
-
     useEffect(() => {
         (async()=>{
             const coinData = await(await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`)).json();
             const tickerData = await (await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)).json();
             setCoin(coinData);
             setTicker(tickerData);
-
             setLoading(false);
         })();
-    },[coinId]) */
-    const loading = isCoinLoading || isTickerLoading;
+    },[coinId])
     return (
         <Container>
             <Header>
-                <Title>{ state?.name ? state.name : loading ? "Loading..." : coinData?.name }</Title>
+                <Title>{ state?.name ? state.name : loading ? "Loading..." : coin?.name }</Title>
             </Header>
             {loading ? (
         <Loader>Loading...</Loader>
@@ -166,42 +134,33 @@ function Coin() {
           <Overview>
             <OverviewItem>
               <span>Rank:</span>
-              <span>{coinData?.rank}</span>
+              <span>{coin?.rank}</span>
             </OverviewItem>
             <OverviewItem>
               <span>Symbol:</span>
-              <span>${coinData?.symbol}</span>
+              <span>${coin?.symbol}</span>
             </OverviewItem>
             <OverviewItem>
               <span>Open Source:</span>
-              <span>{coinData?.open_source ? "Yes" : "No"}</span>
+              <span>{coin?.open_source ? "Yes" : "No"}</span>
             </OverviewItem>
           </Overview>
-          <Description>{coinData?.description}</Description>
+          <Description>{coin?.description}</Description>
           <Overview>
             <OverviewItem>
               <span>Total Suply:</span>
-              <span>{tickerData?.total_supply}</span>
+              <span>{ticker?.total_supply}</span>
             </OverviewItem>
             <OverviewItem>
               <span>Max Supply:</span>
-              <span>{tickerData?.max_supply}</span>
+              <span>{ticker?.max_supply}</span>
             </OverviewItem>
           </Overview>
-          <Tabs>
-            <Tab $isActive={chartMatch !== null}>
-              <Link to={`/${coinId}/chart`}>Chart</Link>
-            </Tab>
-            <Tab $isActive={priceMatch !== null}>
-              <Link to={`/${coinId}/price`}>Price</Link>  
-            </Tab>
-          </Tabs>
-          
           <Switch>
-            <Route path={`/:coinId/price`}>
-              <Price/>
+            <Route path={`/${coinId}/price`}>
+              <Price />
             </Route>
-            <Route path={`/:coinId/chart`}>
+            <Route path={`/${coinId}/chart`}>
               <Chart />
             </Route>
           </Switch>

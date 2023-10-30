@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Chart from './Chart';
 import Price from './Price';
 import { fetchCoin, fetchTicker } from '../api';
-import { useQuery } from 'react-query';
 
 const Container = styled.div`
     padding: 0px 20px;

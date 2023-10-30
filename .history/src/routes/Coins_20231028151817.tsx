@@ -1,7 +1,8 @@
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { fetchCoins} from '../api';
+import { fetchCoins, fetchCoins } from '../api';
 
 const Container = styled.div`
     padding: 0px 20px;
@@ -78,11 +79,11 @@ function Coins() {
         <Header>
             <Title>코인</Title>
         </Header>
-        { isLoading ? (
+        { loading ? (
             <Loader>Loading...</Loader>
             ) : (        
                 <CoinsList>
-                    {data?.slice(0,100).map((coin)=> (
+                    {data.map((coin)=> (
                     <Coin key={coin.id}>
                         <Link to={{
                             pathname:`/${coin.id}`,

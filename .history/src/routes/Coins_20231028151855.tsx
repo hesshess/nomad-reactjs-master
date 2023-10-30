@@ -78,11 +78,11 @@ function Coins() {
         <Header>
             <Title>코인</Title>
         </Header>
-        { isLoading ? (
+        { loading ? (
             <Loader>Loading...</Loader>
             ) : (        
                 <CoinsList>
-                    {data?.slice(0,100).map((coin)=> (
+                    {data.map((coin)=> (
                     <Coin key={coin.id}>
                         <Link to={{
                             pathname:`/${coin.id}`,
