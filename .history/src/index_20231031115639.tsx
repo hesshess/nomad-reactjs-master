@@ -12,6 +12,7 @@ const queryClient = new QueryClient();
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
+      {/* <ThemeProvider theme={ isDark? darkTheme : lightTheme }> */}
         <App />
     </QueryClientProvider>
   </React.StrictMode>

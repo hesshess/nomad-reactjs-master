@@ -74,7 +74,7 @@ function App() {
   }
   return (
     <>
-    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+    <ThemeProvider theme={darkTheme }>
       <button onClick={onClick}>Dark Mode Switch 🎚</button>
     <GlobalStyle/>
     <Router/>

@@ -68,14 +68,9 @@ a {
 `;
 
 function App() {
-  const [isDark, setDark] = useState(false);
-  const onClick = () => {
-    setDark(curr=>!curr);
-  }
   return (
     <>
-    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-      <button onClick={onClick}>Dark Mode Switch 🎚</button>
+    <ThemeProvider>
     <GlobalStyle/>
     <Router/>
     <ReactQueryDevtools initialIsOpen={true}/>

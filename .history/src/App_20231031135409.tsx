@@ -1,8 +1,6 @@
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import Router from './Router';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { lightTheme, darkTheme } from './theme';
-import { useState } from 'react';
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Sometype+Mono:wght@400;600&display=swap');
@@ -68,14 +66,9 @@ a {
 `;
 
 function App() {
-  const [isDark, setDark] = useState(false);
-  const onClick = () => {
-    setDark(curr=>!curr);
-  }
   return (
     <>
-    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-      <button onClick={onClick}>Dark Mode Switch 🎚</button>
+    <ThemeProvider>
     <GlobalStyle/>
     <Router/>
     <ReactQueryDevtools initialIsOpen={true}/>

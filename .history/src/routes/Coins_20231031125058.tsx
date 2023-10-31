@@ -78,7 +78,9 @@ function Coins() {
     return (
     <Container>
             <Helmet>
-            <title>코인</title>
+            <title>코인
+      <button onClick={toggleDark}>Dark Mode Switch 🎚</button>
+            </title>
           </Helmet>
         <Header>
             <Title>코인</Title>

@@ -5,8 +5,7 @@ import Coin from './routes/Coin';
 
 function Router(){
     return(
-        // <BrowserRouter basename="/nomad-reactjs-master">
-        <BrowserRouter>
+        <BrowserRouter basename="/nomad-reactjs-master">
             <Switch>
                 <Route path="/:coinId">
                     <Coin/>

@@ -1,7 +1,8 @@
 {
-    "workbench.colorCustomizations": {
-        "activityBar.background": "#19340B",
-        "titleBar.activeBackground": "#234810",
-        "titleBar.activeForeground": "#F5FCF2"
-    }
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#19340B",
+    "titleBar.activeBackground": "#234810",
+    "titleBar.activeForeground": "#F5FCF2"
+  },
+  "cmake.configureOnOpen": false
 }
